@@ -12,6 +12,6 @@ class PhpFileProviderTest extends TestCase {
     foreach ($provider->provide() as $v) {
       $merged = array_merge($merged, $v);
     }
-    $this->assertSame(['hack' => 'config', 'php' => 'config'], $merged);
+    $this->assertSame(['php' => 'config', 'hack' => 'config'], $merged);
   }
 }
