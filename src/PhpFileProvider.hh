@@ -1,4 +1,4 @@
-<?hh
+<?hh // strict
 
 namespace Ytake\HHConfigAggreagator;
 
@@ -12,7 +12,8 @@ class PhpFileProvider implements ConfigProvidable {
   public function provide(): array<mixed, mixed> {
     $readStream = [];
     foreach ($this->glob($this->pattern) as $file) {
-      $readStream[] = require_once $file;
+      $fr = new Filesystem($file);
+      $readStream[] = $fr->require();
     }
     return $readStream;
   }

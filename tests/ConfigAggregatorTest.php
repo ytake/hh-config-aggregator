@@ -11,9 +11,7 @@ class ConfigAggreagatorTest extends TestCase {
       'testing' => 'ExampleConfigProvider',
       'testing1' => 'NestedArrayProvider',
       0 => 1,
-      'nested' => [
-        'tk' => 'tv',
-      ]
+      'nested' => ['tk' => 'tv'],
     ];
     $aggregator = new ConfigAggreagator(
       [new ExampleConfigProvider(), new NestedArrayProvider()],
@@ -27,18 +25,16 @@ class ConfigAggreagatorTest extends TestCase {
       'testing' => 'ExampleConfigProvider',
       'testing1' => 'NestedArrayProvider',
       0 => 1,
-      'nested' => [
-        'tk' => 'tv',
-      ],
-      'config_cache_enabled' => true
+      'nested' => ['tk' => 'tv'],
+      'config_cache_enabled' => true,
     ];
     $aggregator = new ConfigAggreagator(
       [
-        new ExampleConfigProvider(), 
+        new ExampleConfigProvider(),
         new NestedArrayProvider(),
-        new ArrayProvider(['config_cache_enabled' => true])
+        new ArrayProvider(['config_cache_enabled' => true]),
       ],
-      __DIR__.'/resources/cached.config.cache.hh'
+      __DIR__.'/resources/cached.config.cache.hh',
     );
     $config = $aggregator->getMergedConfig();
     $this->assertFileExists(__DIR__.'/resources/cached.config.cache.hh');
@@ -51,20 +47,20 @@ class ConfigAggreagatorTest extends TestCase {
       'testing' => 'ExampleConfigOverrideProvider',
       'testing1' => 'NestedArrayProvider',
       0 => 2,
-      'nested' => [
-        'tk' => 'tv',
-      ],
-      'testing2' => 'ArrayProvider'
+      'nested' => ['tk' => 'tv'],
+      'testing2' => 'ArrayProvider',
     ];
     $aggregator = new ConfigAggreagator(
       [
-        new ExampleConfigProvider(), 
-        new NestedArrayProvider(),         
-        new ArrayProvider([
-          0 => 2, 
-          'testing' => 'ExampleConfigOverrideProvider',
-          'testing2' => 'ArrayProvider'
-        ])
+        new ExampleConfigProvider(),
+        new NestedArrayProvider(),
+        new ArrayProvider(
+          [
+            0 => 2,
+            'testing' => 'ExampleConfigOverrideProvider',
+            'testing2' => 'ArrayProvider',
+          ],
+        ),
       ],
     );
     $config = $aggregator->getMergedConfig();
@@ -72,7 +68,7 @@ class ConfigAggreagatorTest extends TestCase {
   }
 
   protected function tearDown(): void {
-    if(file_exists(__DIR__.'/resources/cached.config.cache.hh')) {
+    if (file_exists(__DIR__.'/resources/cached.config.cache.hh')) {
       unlink(__DIR__.'/resources/cached.config.cache.hh');
     }
   }

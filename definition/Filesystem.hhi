@@ -6,10 +6,10 @@
 
 namespace Ytake\HHConfigAggreagator;
 
-final class FileRequire<T> {
+final class Filesystem {
     public function __construct(string $filename);
-    
-    public function exists(): bool; 
+
+    public function exists(): bool;
     /**
      * @return array<mixed, mixed>
      */
