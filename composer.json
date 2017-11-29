@@ -1,0 +1,33 @@
+{
+  "name": "ytake/hh-config-aggregator",
+  "description": "Aggregate and merge configuration",
+  "minimum-stability": "stable",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "hack",
+    "hhvm"
+  ],
+  "require": {
+    "hhvm": ">=3.19",
+    "hhvm/hsl": "^1.0.0",
+    "hhvm/hhvm-autoload": "^1.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.0",
+    "91carriage/phpunit-hhi": "^5.7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ytake\\HHConfigAggreagator\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/"
+    ]
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit"
+  }
+}

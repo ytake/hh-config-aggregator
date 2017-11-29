@@ -1,0 +1,3 @@
+<?hh
+
+return ['hack' => 'config'];

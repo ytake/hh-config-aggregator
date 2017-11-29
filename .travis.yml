@@ -1,0 +1,10 @@
+language: php
+sudo: required
+dist: trusty
+php:
+ - hhvm
+ - hhvm-3.21
+install: composer install
+script:
+ - hh_client
+ - hhvm vendor/bin/phpunit

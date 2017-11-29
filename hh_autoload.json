@@ -1,0 +1,9 @@
+{
+  "roots": [
+    "src/",
+    "definition"
+  ],
+  "devRoots": [
+    "tests/"
+  ]
+}
