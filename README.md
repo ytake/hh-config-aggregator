@@ -1,4 +1,4 @@
-# HH-Confug-Aggregator
+# HH-Config-Aggregator
 
 Aggregates and merges configuration, Supports caching for fast bootstrap in production environments.
 
