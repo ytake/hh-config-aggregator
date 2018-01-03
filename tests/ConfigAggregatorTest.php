@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use Ytake\HHConfigAggreagator\ArrayProvider;
 use Ytake\HHConfigAggreagator\ConfigAggreagator;
+use Ytake\HHConfigAggreagator\PhpFileProvider;
 
 class ConfigAggreagatorTest extends TestCase {
 
@@ -12,9 +13,17 @@ class ConfigAggreagatorTest extends TestCase {
       'testing1' => 'NestedArrayProvider',
       0 => 1,
       'nested' => ['tk' => 'tv'],
+      'php' => 'config', 
+      'hack' => 'config'
     ];
     $aggregator = new ConfigAggreagator(
-      [new ExampleConfigProvider(), new NestedArrayProvider()],
+      [
+        new ExampleConfigProvider(), 
+        new NestedArrayProvider(),
+        new PhpFileProvider(
+          __DIR__.'/resources/config/{{,*.}global,{,*.}local}.{hh,php}',
+        ),
+      ],
     );
     $config = $aggregator->getMergedConfig();
     $this->assertEquals($expected, $config);

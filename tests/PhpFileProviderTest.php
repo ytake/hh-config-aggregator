@@ -8,10 +8,6 @@ class PhpFileProviderTest extends TestCase {
     $provider = new PhpFileProvider(
       __DIR__.'/resources/config/{{,*.}global,{,*.}local}.{hh,php}',
     );
-    $merged = [];
-    foreach ($provider->provide() as $v) {
-      $merged = array_merge($merged, $v);
-    }
-    $this->assertEquals(['php' => 'config', 'hack' => 'config'], $merged);
+    $this->assertEquals(['php' => 'config', 'hack' => 'config'], $provider->provide());
   }
 }
