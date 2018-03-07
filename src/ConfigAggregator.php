@@ -41,8 +41,7 @@ class ConfigAggreagator {
   }
 
   private function mergeArrayToMap(
-    array<mixed, mixed> $a,
-    array<mixed, mixed> $b = [],
+    array<mixed, mixed> $a
   ): Map<mixed, mixed> {
     $map = Map {};
     foreach ($a as $v) {
