@@ -28,7 +28,7 @@ class PhpFileProvider implements ConfigProvidable {
     $readStream = [];
     foreach ($this->glob($this->pattern) as $file) {
       $fr = new Filesystem($file);
-      $readStream = array_merge($readStream, $fr->require());
+      $readStream = \array_merge($readStream, $fr->require());
     }
     return $readStream;
   }
