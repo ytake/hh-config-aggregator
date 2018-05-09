@@ -23,7 +23,7 @@ trait GlobTrait {
    * @return array
    */
   private function glob(string $pattern): ImmVector<string> {
-    $result = glob($pattern, GLOB_BRACE);
+    $result = \glob($pattern, \GLOB_BRACE);
     if ($result === false) {
       $result = [];
     }
