@@ -88,7 +88,7 @@ class ConfigAggreagator {
     if (!\array_key_exists(static::ENABLE_CACHE, $configMap)) {
       return;
     }
-    if (!$configMap[static::ENABLE_CACHE]) {
+    if ($configMap[static::ENABLE_CACHE] === false) {
       return;
     }
     \file_put_contents(
