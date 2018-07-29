@@ -1,6 +1,6 @@
 <?hh // strict
 
-use Ytake\HHConfigAggreagator\ConfigProvidable;
+use type Ytake\HHConfigAggreagator\ConfigProvidable;
 
 class ExampleConfigProvider implements ConfigProvidable {
 

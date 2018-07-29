@@ -9,7 +9,7 @@ Aggregates and merges configuration, Supports caching for fast bootstrap in prod
 ## Installation
 
 ```bash
-$ hhvm --php $(which composer) require ytake/hh-config-aggregator
+$ hhvm $(which composer) require ytake/hh-config-aggregator
 ```
 
 ## Usage
