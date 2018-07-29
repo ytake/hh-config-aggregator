@@ -1,9 +1,9 @@
 <?hh // strict
 
-use PHPUnit\Framework\TestCase;
-use Ytake\HHConfigAggreagator\ArrayProvider;
-use Ytake\HHConfigAggreagator\ConfigAggreagator;
-use Ytake\HHConfigAggreagator\PhpFileProvider;
+use type PHPUnit\Framework\TestCase;
+use type Ytake\HHConfigAggreagator\ArrayProvider;
+use type Ytake\HHConfigAggreagator\ConfigAggreagator;
+use type Ytake\HHConfigAggreagator\PhpFileProvider;
 
 class ConfigAggreagatorTest extends TestCase {
 
@@ -13,12 +13,12 @@ class ConfigAggreagatorTest extends TestCase {
       'testing1' => 'NestedArrayProvider',
       0 => 1,
       'nested' => ['tk' => 'tv'],
-      'php' => 'config', 
+      'php' => 'config',
       'hack' => 'config'
     ];
     $aggregator = new ConfigAggreagator(
       [
-        new ExampleConfigProvider(), 
+        new ExampleConfigProvider(),
         new NestedArrayProvider(),
         new PhpFileProvider(
           __DIR__.'/resources/config/{{,*.}global,{,*.}local}.{hh,php}',
@@ -76,6 +76,7 @@ class ConfigAggreagatorTest extends TestCase {
     $this->assertEquals($expected, $config);
   }
 
+  <<__Override>>
   protected function tearDown(): void {
     if (file_exists(__DIR__.'/resources/cached.config.cache.hh')) {
       unlink(__DIR__.'/resources/cached.config.cache.hh');

@@ -1,7 +1,7 @@
 <?hh // strict
 
-use PHPUnit\Framework\TestCase;
-use Ytake\HHConfigAggreagator\ArrayProvider;
+use type PHPUnit\Framework\TestCase;
+use type Ytake\HHConfigAggreagator\ArrayProvider;
 
 class ArrayProviderTest extends TestCase {
   public function testProviderReturnsArrayProvidedAtConstruction(): void {

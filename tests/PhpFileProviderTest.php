@@ -1,7 +1,7 @@
 <?hh // strict
 
-use PHPUnit\Framework\TestCase;
-use Ytake\HHConfigAggreagator\PhpFileProvider;
+use type PHPUnit\Framework\TestCase;
+use type Ytake\HHConfigAggreagator\PhpFileProvider;
 
 class PhpFileProviderTest extends TestCase {
   public function testProviderLoadsConfigFromFiles(): void {
