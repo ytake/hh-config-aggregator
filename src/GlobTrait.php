@@ -13,20 +13,20 @@
  * and is licensed under the MIT license.
  *
  * Copyright (c) 2017-2018 Yuuki Takezawa
- *
  */
+
 namespace Ytake\HHConfigAggreagator;
 
+use function glob;
+use const GLOB_BRACE;
+
 trait GlobTrait {
-  /**
-   * @param string $pattern
-   * @return array
-   */
-  private function glob(string $pattern): ImmVector<string> {
-    $result = \glob($pattern, \GLOB_BRACE);
+
+  private function glob(string $pattern): vec<string> {
+    $result = glob($pattern, GLOB_BRACE);
     if ($result === false) {
       $result = [];
     }
-    return new ImmVector($result);
+    return vec($result);
   }
 }

@@ -13,8 +13,8 @@
  * and is licensed under the MIT license.
  *
  * Copyright (c) 2017-2018 Yuuki Takezawa
- *
  */
+
 namespace Ytake\HHConfigAggreagator;
 
 class ConfigAggreagator {
@@ -62,7 +62,7 @@ class ConfigAggreagator {
     foreach ($vec as $v) {
       if (\is_array($v)) {
         foreach ($v as $key => $row) {
-          if (\is_int($key) || \is_string($key)) {
+          if ($key is int || $key is string) {
             $map->add(Pair {$key, $row});
           }
         }
@@ -71,9 +71,6 @@ class ConfigAggreagator {
     return $map;
   }
 
-  /**
-   * @return array<mixed, mixed>
-   */
   public function getMergedConfig(): array<mixed, mixed> {
     return $this->config;
   }

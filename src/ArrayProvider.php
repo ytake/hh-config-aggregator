@@ -13,19 +13,16 @@
  * and is licensed under the MIT license.
  *
  * Copyright (c) 2017-2018 Yuuki Takezawa
- *
  */
+
 namespace Ytake\HHConfigAggreagator;
 
 class ArrayProvider implements ConfigProvidable {
-  /**
-   * @param array $config
-   */
-  public function __construct(private array<mixed, mixed> $config) {}
 
-  /**
-   * @return array
-   */
+  public function __construct(
+    private array<mixed, mixed> $config
+  ) {}
+
   public function provide(): array<mixed, mixed> {
     return $this->config;
   }

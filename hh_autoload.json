@@ -1,7 +1,6 @@
 {
   "roots": [
-    "src/",
-    "definition"
+    "src/"
   ],
   "devRoots": [
     "tests/"

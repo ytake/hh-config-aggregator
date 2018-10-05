@@ -17,18 +17,20 @@
  */
 namespace Ytake\HHConfigAggreagator;
 
+use function array_merge;
+
 class PhpFileProvider implements ConfigProvidable {
   use GlobTrait;
-  /**
-   * @param string $pattern A glob pattern by which to look up config files.
-   */
-  public function __construct(private string $pattern) {}
+
+  public function __construct(
+    private string $pattern
+  ) {}
 
   public function provide(): array<mixed, mixed> {
     $readStream = [];
     foreach ($this->glob($this->pattern) as $file) {
       $fr = new Filesystem($file);
-      $readStream = \array_merge($readStream, $fr->require());
+      $readStream = array_merge($readStream, $fr->require());
     }
     return $readStream;
   }
