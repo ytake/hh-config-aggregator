@@ -20,7 +20,7 @@ use Ytake\HHConfigAggreagator\ConfigAggreagator;
 use Ytake\HHConfigAggreagator\PhpFileProvider;
 
 $aggregator = new ConfigAggreagator(
-  [
+  vec[
     new PhpFileProvider(
       __DIR__.'/resources/config/{{,*.}global,{,*.}local}.{hh,php}',
     ),
