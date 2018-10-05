@@ -1,4 +1,4 @@
-<?php
+<?hh 
 
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -17,21 +17,21 @@
  */
 namespace Ytake\HHConfigAggreagator;
 
+use function file_exists;
+
 final class Filesystem {
+  
   private $filename = '';
+
   public function __construct($filename) {
     $this->filename = $filename;
   }
-  /**
-   * @return bool
-   */
-  public function exists() {
+
+  public function exists(): bool {
     return file_exists($this->filename);
   }
-  /**
-   * @return mixed|bool
-   */
-  public function require() {
+
+  public function require(): array<mixed, mixed> {
     return require $this->filename;
   }
 }

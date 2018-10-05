@@ -1,13 +1,16 @@
 <?hh // strict
 
-use type PHPUnit\Framework\TestCase;
+use type Facebook\HackTest\HackTest;
 use type Ytake\HHConfigAggreagator\PhpFileProvider;
 
-class PhpFileProviderTest extends TestCase {
+use function Facebook\FBExpect\expect;
+
+class PhpFileProviderTest extends HackTest {
   public function testProviderLoadsConfigFromFiles(): void {
     $provider = new PhpFileProvider(
       __DIR__.'/resources/config/{{,*.}global,{,*.}local}.{hh,php}',
     );
-    $this->assertEquals(['php' => 'config', 'hack' => 'config'], $provider->provide());
+
+    expect($provider->provide())->toInclude(['php' => 'config', 'hack' => 'config']);
   }
 }

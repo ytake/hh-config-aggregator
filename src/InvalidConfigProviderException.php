@@ -19,4 +19,4 @@ namespace Ytake\HHConfigAggreagator;
 
 use type RuntimeException;
 
-class InvalidConfigProviderException extends RuntimeException {}
+final class InvalidConfigProviderException extends RuntimeException {}

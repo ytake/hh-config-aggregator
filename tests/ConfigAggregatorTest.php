@@ -1,11 +1,14 @@
 <?hh // strict
 
-use type PHPUnit\Framework\TestCase;
+use type Facebook\HackTest\HackTest;
+use type Ytake\HHConfigAggreagator\ArrayProvider;
 use type Ytake\HHConfigAggreagator\ArrayProvider;
 use type Ytake\HHConfigAggreagator\ConfigAggreagator;
 use type Ytake\HHConfigAggreagator\PhpFileProvider;
 
-class ConfigAggreagatorTest extends TestCase {
+use function Facebook\FBExpect\expect;
+
+class ConfigAggregatorTest extends HackTest {
 
   public function testShouldReturnExpectedConfigArray(): void {
     $expected = [
@@ -13,11 +16,11 @@ class ConfigAggreagatorTest extends TestCase {
       'testing1' => 'NestedArrayProvider',
       0 => 1,
       'nested' => ['tk' => 'tv'],
+      'hack' => 'config',
       'php' => 'config',
-      'hack' => 'config'
     ];
     $aggregator = new ConfigAggreagator(
-      [
+      vec[
         new ExampleConfigProvider(),
         new NestedArrayProvider(),
         new PhpFileProvider(
@@ -26,7 +29,7 @@ class ConfigAggreagatorTest extends TestCase {
       ],
     );
     $config = $aggregator->getMergedConfig();
-    $this->assertEquals($expected, $config);
+    expect($config)->toInclude($expected);
   }
 
   public function testShouldReturnCacheConfigArray(): void {
@@ -38,7 +41,7 @@ class ConfigAggreagatorTest extends TestCase {
       'config_cache_enabled' => true,
     ];
     $aggregator = new ConfigAggreagator(
-      [
+      vec[
         new ExampleConfigProvider(),
         new NestedArrayProvider(),
         new ArrayProvider(['config_cache_enabled' => true]),
@@ -46,9 +49,8 @@ class ConfigAggreagatorTest extends TestCase {
       __DIR__.'/resources/cached.config.cache.hh',
     );
     $config = $aggregator->getMergedConfig();
-    $this->assertFileExists(__DIR__.'/resources/cached.config.cache.hh');
-    $this->assertInternalType('array', $config);
-    $this->assertEquals($expected, $config);
+    expect($config)->toBeType('array');
+    expect($config)->toInclude($expected);
   }
 
   public function testShouldReturnExpectedOverrideConfigArray(): void {
@@ -60,7 +62,7 @@ class ConfigAggreagatorTest extends TestCase {
       'testing2' => 'ArrayProvider',
     ];
     $aggregator = new ConfigAggreagator(
-      [
+      vec[
         new ExampleConfigProvider(),
         new NestedArrayProvider(),
         new ArrayProvider(
@@ -73,11 +75,11 @@ class ConfigAggreagatorTest extends TestCase {
       ],
     );
     $config = $aggregator->getMergedConfig();
-    $this->assertEquals($expected, $config);
+    expect($config)->toInclude($expected);
   }
 
   <<__Override>>
-  protected function tearDown(): void {
+  public async function afterEachTestAsync(): Awaitable<void>{
     if (file_exists(__DIR__.'/resources/cached.config.cache.hh')) {
       unlink(__DIR__.'/resources/cached.config.cache.hh');
     }
