@@ -29,7 +29,7 @@ class ConfigAggregatorTest extends HackTest {
       ],
     );
     $config = $aggregator->getMergedConfig();
-    expect($config)->toBeSame($expected);
+    expect($config)->toInclude($expected);
   }
 
   public function testShouldReturnCacheConfigArray(): void {
@@ -50,7 +50,7 @@ class ConfigAggregatorTest extends HackTest {
     );
     $config = $aggregator->getMergedConfig();
     expect($config)->toBeType('array');
-    expect($config)->toBeSame($expected);
+    expect($config)->toInclude($expected);
   }
 
   public function testShouldReturnExpectedOverrideConfigArray(): void {
@@ -75,7 +75,7 @@ class ConfigAggregatorTest extends HackTest {
       ],
     );
     $config = $aggregator->getMergedConfig();
-    expect($config)->toBeSame($expected);
+    expect($config)->toInclude($expected);
   }
 
   <<__Override>>
