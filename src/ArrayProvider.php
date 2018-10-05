@@ -13,8 +13,8 @@
  * and is licensed under the MIT license.
  *
  * Copyright (c) 2017-2018 Yuuki Takezawa
+ *
  */
-
 namespace Ytake\HHConfigAggreagator;
 
 class ArrayProvider implements ConfigProvidable {

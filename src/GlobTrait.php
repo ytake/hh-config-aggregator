@@ -13,8 +13,8 @@
  * and is licensed under the MIT license.
  *
  * Copyright (c) 2017-2018 Yuuki Takezawa
+ *
  */
-
 namespace Ytake\HHConfigAggreagator;
 
 use function glob;
@@ -25,7 +25,7 @@ trait GlobTrait {
   private function glob(string $pattern): vec<string> {
     $result = glob($pattern, GLOB_BRACE);
     if ($result === false) {
-      $result = [];
+      return vec[];
     }
     return vec($result);
   }

@@ -20,7 +20,9 @@ namespace Ytake\HHConfigAggreagator;
 use function file_exists;
 
 final class Filesystem {
+  
   private $filename = '';
+
   public function __construct($filename) {
     $this->filename = $filename;
   }

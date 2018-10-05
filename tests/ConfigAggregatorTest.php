@@ -20,7 +20,7 @@ class ConfigAggregatorTest extends HackTest {
       'php' => 'config',
     ];
     $aggregator = new ConfigAggreagator(
-      [
+      vec[
         new ExampleConfigProvider(),
         new NestedArrayProvider(),
         new PhpFileProvider(
@@ -41,7 +41,7 @@ class ConfigAggregatorTest extends HackTest {
       'config_cache_enabled' => true,
     ];
     $aggregator = new ConfigAggreagator(
-      [
+      vec[
         new ExampleConfigProvider(),
         new NestedArrayProvider(),
         new ArrayProvider(['config_cache_enabled' => true]),
@@ -62,7 +62,7 @@ class ConfigAggregatorTest extends HackTest {
       'testing2' => 'ArrayProvider',
     ];
     $aggregator = new ConfigAggreagator(
-      [
+      vec[
         new ExampleConfigProvider(),
         new NestedArrayProvider(),
         new ArrayProvider(
