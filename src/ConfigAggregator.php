@@ -17,13 +17,10 @@
  */
 namespace Ytake\HHConfigAggreagator;
 
-use namespace HH\Lib\Str;
+use namespace HH\Lib\{Str, C};
 
-use function is_null;
 use function is_array;
-use function array_key_exists;
 use function file_put_contents;
-use function sprintf;
 use function date;
 use function var_export;
 
@@ -45,7 +42,7 @@ class ConfigAggreagator {
   private function loadConfigFromCache(
     ?string $cachedConfigFile
   ): bool {
-    if (is_null($cachedConfigFile)) {
+    if (!$cachedConfigFile is nonnull) {
       return false;
     }
     $require = new Filesystem($cachedConfigFile);
@@ -73,7 +70,7 @@ class ConfigAggreagator {
     foreach ($vec as $v) {
       if (is_array($v)) {
         foreach ($v as $key => $row) {
-          if ($key is int || $key is string) {
+          if ($key is arraykey) {
             $map->add(Pair {$key, $row});
           }
         }
@@ -82,6 +79,7 @@ class ConfigAggreagator {
     return $map;
   }
 
+  <<__Rx>>
   public function getMergedConfig(): array<mixed, mixed> {
     return $this->config;
   }
@@ -90,10 +88,10 @@ class ConfigAggreagator {
     array<mixed, mixed> $configMap,
     ?string $cachedConfigFile = null,
   ): void {
-    if (is_null($cachedConfigFile)) {
+    if (!$cachedConfigFile is nonnull) {
       return;
     }
-    if (!array_key_exists(static::ENABLE_CACHE, $configMap)) {
+    if (!C\contains_key($configMap, static::ENABLE_CACHE)) {
       return;
     }
     if ($configMap[static::ENABLE_CACHE] === false) {

@@ -1,4 +1,4 @@
-<?hh 
+<?hh // strict
 
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -20,10 +20,10 @@ namespace Ytake\HHConfigAggreagator;
 use function file_exists;
 
 final class Filesystem {
-  
-  private $filename = '';
 
-  public function __construct($filename) {
+  private string $filename = '';
+
+  public function __construct(string $filename) {
     $this->filename = $filename;
   }
 
@@ -31,6 +31,7 @@ final class Filesystem {
     return file_exists($this->filename);
   }
 
+  <<__Rx>>
   public function require(): array<mixed, mixed> {
     return require $this->filename;
   }

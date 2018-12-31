@@ -21,6 +21,7 @@ use function glob;
 use const GLOB_BRACE;
 
 trait GlobTrait {
+  require implements ConfigProvidable;
 
   private function glob(string $pattern): vec<string> {
     $result = glob($pattern, GLOB_BRACE);
