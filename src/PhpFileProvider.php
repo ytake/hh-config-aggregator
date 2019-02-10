@@ -12,11 +12,12 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2017-2018 Yuuki Takezawa
+ * Copyright (c) 2017-2019 Yuuki Takezawa
  *
  */
 namespace Ytake\HHConfigAggreagator;
 
+use namespace HH\Lib\Dict;
 use function array_merge;
 
 class PhpFileProvider implements ConfigProvidable {
@@ -26,12 +27,12 @@ class PhpFileProvider implements ConfigProvidable {
     private string $pattern
   ) {}
 
-  public function provide(): array<mixed, mixed> {
-    $readStream = [];
+  public function provide(): dict<arraykey, mixed> {
+    $readStream = dict[];
     foreach ($this->glob($this->pattern) as $file) {
       $fr = new Filesystem($file);
-      $readStream = array_merge($readStream, $fr->require());
+      $readStream = Dict\merge($readStream, $fr->require());
     }
-    return $readStream;
+    return dict($readStream);
   }
 }

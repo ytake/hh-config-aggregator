@@ -12,7 +12,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2017-2018 Yuuki Takezawa
+ * Copyright (c) 2017-2019 Yuuki Takezawa
  *
  */
 namespace Ytake\HHConfigAggreagator;
@@ -21,18 +21,16 @@ use function file_exists;
 
 final class Filesystem {
 
-  private string $filename = '';
-
-  public function __construct(string $filename) {
-    $this->filename = $filename;
-  }
+  public function __construct(
+    private string $filename = ''
+  ) {}
 
   public function exists(): bool {
     return file_exists($this->filename);
   }
 
   <<__Rx>>
-  public function require(): array<mixed, mixed> {
+  public function require(): dict<arraykey, mixed> {
     return require $this->filename;
   }
 }

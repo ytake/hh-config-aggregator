@@ -12,11 +12,11 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2017-2018 Yuuki Takezawa
+ * Copyright (c) 2017-2019 Yuuki Takezawa
  */
 
 namespace Ytake\HHConfigAggreagator;
 
 interface ConfigProvidable {
-  public function provide(): array<mixed, mixed>;
+  public function provide(): dict<arraykey, mixed>;
 }
