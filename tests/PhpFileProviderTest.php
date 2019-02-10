@@ -11,6 +11,6 @@ class PhpFileProviderTest extends HackTest {
       __DIR__.'/resources/config/{{,*.}global,{,*.}local}.{hh,php}',
     );
 
-    expect($provider->provide())->toInclude(['php' => 'config', 'hack' => 'config']);
+    expect($provider->provide())->toInclude(dict['php' => 'config', 'hack' => 'config']);
   }
 }

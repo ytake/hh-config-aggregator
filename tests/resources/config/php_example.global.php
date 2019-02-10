@@ -1,3 +1,3 @@
 <?hh
 
-return ['php' => 'config'];
+return dict['php' => 'config'];

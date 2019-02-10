@@ -12,7 +12,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2017-2018 Yuuki Takezawa
+ * Copyright (c) 2017-2019 Yuuki Takezawa
  *
  */
 namespace Ytake\HHConfigAggreagator;
@@ -24,9 +24,18 @@ use function file_put_contents;
 use function date;
 use function var_export;
 
+enum Cache: int as int {
+  DISABLE = 0;
+  ENABLE = 1;
+}
+
+enum CacheConfig: string as string {
+  KEYNAME = 'config_cache_enabled';
+}
+
 class ConfigAggreagator {
-  const string ENABLE_CACHE = 'config_cache_enabled';
-  private array<mixed, mixed> $config = [];
+
+  private dict<arraykey, mixed> $config = dict[];
 
   public function __construct(
     vec<ConfigProvidable> $providers = vec[],
@@ -35,7 +44,7 @@ class ConfigAggreagator {
     if ($this->loadConfigFromCache($cachedConfigFile)) {
       return;
     }
-    $this->config = $this->loadConfigFromProviders($providers)->toArray();
+    $this->config = $this->loadConfigFromProviders($providers);
     $this->cacheConfig($this->config, $cachedConfigFile);
   }
 
@@ -55,23 +64,24 @@ class ConfigAggreagator {
 
   private function loadConfigFromProviders(
     vec<ConfigProvidable> $providers,
-  ): Map<mixed, mixed> {
+  ): dict<arraykey, mixed> {
     $configArray = vec[];
     foreach ($providers as $provider) {
       $configArray[] = $provider->provide();
     }
-    return $this->mergeArrayToMap($configArray);
+    return $this->mergeDict($configArray);
   }
 
-  private function mergeArrayToMap(
-    vec<array<mixed, mixed>> $vec
-  ): Map<mixed, mixed> {
-    $map = Map{};
+  <<__Rx>>
+  private function mergeDict(
+    vec<dict<arraykey, mixed>> $vec
+  ): dict<arraykey, mixed> {
+    $map = dict[];
     foreach ($vec as $v) {
-      if (is_array($v)) {
+      if ($v is dict<_, _>) {
         foreach ($v as $key => $row) {
           if ($key is arraykey) {
-            $map->add(Pair {$key, $row});
+            $map[$key] = $row;
           }
         }
       }
@@ -80,21 +90,21 @@ class ConfigAggreagator {
   }
 
   <<__Rx>>
-  public function getMergedConfig(): array<mixed, mixed> {
+  public function getMergedConfig(): dict<arraykey, mixed> {
     return $this->config;
   }
 
   protected function cacheConfig(
-    array<mixed, mixed> $configMap,
+    dict<arraykey, mixed> $configMap,
     ?string $cachedConfigFile = null,
   ): void {
     if (!$cachedConfigFile is nonnull) {
       return;
     }
-    if (!C\contains_key($configMap, static::ENABLE_CACHE)) {
+    if (!C\contains_key($configMap, CacheConfig::KEYNAME)) {
       return;
     }
-    if ($configMap[static::ENABLE_CACHE] === false) {
+    if ($configMap[CacheConfig::KEYNAME] === Cache::DISABLE) {
       return;
     }
     file_put_contents(

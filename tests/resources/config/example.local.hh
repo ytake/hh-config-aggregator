@@ -1,3 +1,3 @@
 <?hh
 
-return ['hack' => 'config'];
+return dict['hack' => 'config'];

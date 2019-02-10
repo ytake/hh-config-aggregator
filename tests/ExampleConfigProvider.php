@@ -4,7 +4,7 @@ use type Ytake\HHConfigAggreagator\ConfigProvidable;
 
 class ExampleConfigProvider implements ConfigProvidable {
 
-  public function provide(): array<mixed, mixed> {
-    return ['testing' => __CLASS__];
+  public function provide(): dict<arraykey, mixed> {
+    return dict['testing' => __CLASS__];
   }
 }
