@@ -1,5 +1,3 @@
-<?hh // strict
-
 use type Facebook\HackTest\HackTest;
 use type Ytake\HHConfigAggreagator\ArrayProvider;
 use type Ytake\HHConfigAggreagator\ArrayProvider;

@@ -1,5 +1,3 @@
-<?hh // strict
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -17,13 +15,20 @@
  */
 namespace Ytake\HHConfigAggreagator;
 
-class ArrayProvider implements ConfigProvidable {
+use function file_exists;
+
+final class Filesystem {
 
   public function __construct(
-    private dict<arraykey, mixed> $config
+    private string $filename = ''
   ) {}
 
-  public function provide(): dict<arraykey, mixed> {
-    return $this->config;
+  public function exists(): bool {
+    return file_exists($this->filename);
+  }
+
+  <<__Rx>>
+  public function require(): dict<arraykey, mixed> {
+    return require $this->filename;
   }
 }

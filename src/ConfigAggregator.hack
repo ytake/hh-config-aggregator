@@ -1,5 +1,3 @@
-<?hh // strict
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -19,19 +17,9 @@ namespace Ytake\HHConfigAggreagator;
 
 use namespace HH\Lib\{Str, C};
 
-use function is_array;
 use function file_put_contents;
 use function date;
 use function var_export;
-
-enum Cache: int as int {
-  DISABLE = 0;
-  ENABLE = 1;
-}
-
-enum CacheConfig: string as string {
-  KEYNAME = 'config_cache_enabled';
-}
 
 class ConfigAggreagator {
 
