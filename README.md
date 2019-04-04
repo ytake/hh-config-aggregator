@@ -15,9 +15,9 @@ $ hhvm $(which composer) require ytake/hh-config-aggregator
 ## Usage
 
 ```hack
-use Ytake\HHConfigAggreagator\ArrayProvider;
-use Ytake\HHConfigAggreagator\ConfigAggreagator;
-use Ytake\HHConfigAggreagator\PhpFileProvider;
+use type Ytake\HHConfigAggreagator\ArrayProvider;
+use type Ytake\HHConfigAggreagator\ConfigAggreagator;
+use type Ytake\HHConfigAggreagator\PhpFileProvider;
 
 $aggregator = new ConfigAggreagator(
   vec[

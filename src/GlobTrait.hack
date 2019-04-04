@@ -1,5 +1,3 @@
-<?hh // strict
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -17,22 +15,17 @@
  */
 namespace Ytake\HHConfigAggreagator;
 
-use namespace HH\Lib\Dict;
-use function array_merge;
+use function glob;
+use const GLOB_BRACE;
 
-class PhpFileProvider implements ConfigProvidable {
-  use GlobTrait;
+trait GlobTrait {
+  require implements ConfigProvidable;
 
-  public function __construct(
-    private string $pattern
-  ) {}
-
-  public function provide(): dict<arraykey, mixed> {
-    $readStream = dict[];
-    foreach ($this->glob($this->pattern) as $file) {
-      $fr = new Filesystem($file);
-      $readStream = Dict\merge($readStream, $fr->require());
+  private function glob(string $pattern): vec<string> {
+    $result = glob($pattern, GLOB_BRACE);
+    if ($result === false) {
+      return vec[];
     }
-    return dict($readStream);
+    return vec($result);
   }
 }

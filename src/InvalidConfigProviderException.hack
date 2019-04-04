@@ -1,5 +1,3 @@
-<?hh // strict
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -17,20 +15,6 @@
  */
 namespace Ytake\HHConfigAggreagator;
 
-use function file_exists;
+use type RuntimeException;
 
-final class Filesystem {
-
-  public function __construct(
-    private string $filename = ''
-  ) {}
-
-  public function exists(): bool {
-    return file_exists($this->filename);
-  }
-
-  <<__Rx>>
-  public function require(): dict<arraykey, mixed> {
-    return require $this->filename;
-  }
-}
+final class InvalidConfigProviderException extends RuntimeException {}

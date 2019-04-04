@@ -1,5 +1,3 @@
-<?hh // strict
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -17,6 +15,21 @@
  */
 namespace Ytake\HHConfigAggreagator;
 
-use type RuntimeException;
+use namespace HH\Lib\Dict;
 
-final class InvalidConfigProviderException extends RuntimeException {}
+class PhpFileProvider implements ConfigProvidable {
+  use GlobTrait;
+
+  public function __construct(
+    private string $pattern
+  ) {}
+
+  public function provide(): dict<arraykey, mixed> {
+    $readStream = dict[];
+    foreach ($this->glob($this->pattern) as $file) {
+      $fr = new Filesystem($file);
+      $readStream = Dict\merge($readStream, $fr->require());
+    }
+    return dict($readStream);
+  }
+}

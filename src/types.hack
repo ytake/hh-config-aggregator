@@ -1,5 +1,3 @@
-<?hh // strict
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -15,19 +13,14 @@
  * Copyright (c) 2017-2019 Yuuki Takezawa
  *
  */
+
 namespace Ytake\HHConfigAggreagator;
 
-use function glob;
-use const GLOB_BRACE;
+enum Cache: int as int {
+  DISABLE = 0;
+  ENABLE = 1;
+}
 
-trait GlobTrait {
-  require implements ConfigProvidable;
-
-  private function glob(string $pattern): vec<string> {
-    $result = glob($pattern, GLOB_BRACE);
-    if ($result === false) {
-      return vec[];
-    }
-    return vec($result);
-  }
+enum CacheConfig: string as string {
+  KEYNAME = 'config_cache_enabled';
 }

@@ -1,3 +1,5 @@
-<?hh
+<?hh 
 
-return dict['hack' => 'config'];
+return dict[
+  'hack' => 'config'
+];

@@ -1,5 +1,3 @@
-<?hh // strict
-
 /**
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -13,10 +11,17 @@
  * and is licensed under the MIT license.
  *
  * Copyright (c) 2017-2019 Yuuki Takezawa
+ *
  */
-
 namespace Ytake\HHConfigAggreagator;
 
-interface ConfigProvidable {
-  public function provide(): dict<arraykey, mixed>;
+class ArrayProvider implements ConfigProvidable {
+
+  public function __construct(
+    private dict<arraykey, mixed> $config
+  ) {}
+
+  public function provide(): dict<arraykey, mixed> {
+    return $this->config;
+  }
 }
