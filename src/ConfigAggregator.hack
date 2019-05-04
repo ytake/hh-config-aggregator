@@ -98,13 +98,13 @@ class ConfigAggreagator {
     file_put_contents(
       $cachedConfigFile,
       Str\format(
-        '<?hh
-        /**
-        * This configuration cache file was generated at %s
-        */
-        return %s;',
-        date('c'),
-        var_export($configMap, true),
+        '<?hh // partial
+/**
+ * This configuration cache file was generated at %s
+ */
+return %s;',
+date('c'),
+var_export($configMap, true),
       ),
     );
     return;
