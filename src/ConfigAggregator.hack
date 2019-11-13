@@ -15,8 +15,8 @@
  */
 namespace Ytake\HHConfigAggreagator;
 
-use namespace HH\Lib\{Str, C};
-
+use namespace HH\Lib\{C, Str};
+use type HH\Lib\Experimental\File\Path;
 use function file_put_contents;
 use function date;
 use function var_export;
@@ -42,7 +42,7 @@ class ConfigAggreagator {
     if (!$cachedConfigFile is nonnull) {
       return false;
     }
-    $require = new Filesystem($cachedConfigFile);
+    $require = new Filesystem(new Path($cachedConfigFile));
     if (!$require->exists()) {
       return false;
     }

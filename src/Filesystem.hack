@@ -15,20 +15,22 @@
  */
 namespace Ytake\HHConfigAggreagator;
 
-use function file_exists;
+use type HH\Lib\Experimental\File\Path;
 
 final class Filesystem {
 
   public function __construct(
-    private string $filename = ''
+    private Path $filePath
   ) {}
 
   public function exists(): bool {
-    return file_exists($this->filename);
+    return $this->filePath->exists();
   }
 
-  <<__Rx>>
   public function require(): dict<arraykey, mixed> {
-    return require $this->filename;
+    if($this->filePath->isFile()) {
+      return require $this->filePath->toString();
+    }
+    return dict[];
   }
 }

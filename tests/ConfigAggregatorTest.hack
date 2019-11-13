@@ -1,10 +1,11 @@
 use type Facebook\HackTest\HackTest;
-use type Ytake\HHConfigAggreagator\ArrayProvider;
-use type Ytake\HHConfigAggreagator\ArrayProvider;
-use type Ytake\HHConfigAggreagator\ConfigAggreagator;
-use type Ytake\HHConfigAggreagator\PhpFileProvider;
-use type Ytake\HHConfigAggreagator\Cache;
-use type Ytake\HHConfigAggreagator\CacheConfig;
+use type Ytake\HHConfigAggreagator\{
+  ArrayProvider,
+  Cache,
+  CacheConfig,
+  ConfigAggreagator,
+  PhpFileProvider,
+};
 use function Facebook\FBExpect\expect;
 
 class ConfigAggregatorTest extends HackTest {

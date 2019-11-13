@@ -16,6 +16,7 @@
 namespace Ytake\HHConfigAggreagator;
 
 use namespace HH\Lib\Dict;
+use type HH\Lib\Experimental\File\Path;
 
 class PhpFileProvider implements ConfigProvidable {
   use GlobTrait;
@@ -27,7 +28,7 @@ class PhpFileProvider implements ConfigProvidable {
   public function provide(): dict<arraykey, mixed> {
     $readStream = dict[];
     foreach ($this->glob($this->pattern) as $file) {
-      $fr = new Filesystem($file);
+      $fr = new Filesystem(new Path($file));
       $readStream = Dict\merge($readStream, $fr->require());
     }
     return dict($readStream);
