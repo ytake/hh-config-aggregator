@@ -10,7 +10,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2017-2019 Yuuki Takezawa
+ * Copyright (c) 2017-2020 Yuuki Takezawa
  *
  */
 namespace Ytake\HHConfigAggreagator;
@@ -25,11 +25,11 @@ class PhpFileProvider implements ConfigProvidable {
     private string $pattern
   ) {}
 
-  public function provide(): dict<arraykey, mixed> {
+  public async function provideAsync(): Awaitable<dict<arraykey, mixed>> {
     $readStream = dict[];
     foreach ($this->glob($this->pattern) as $file) {
       $fr = new Filesystem(new Path($file));
-      $readStream = Dict\merge($readStream, $fr->require());
+      $readStream = Dict\merge($readStream, await $fr->require());
     }
     return dict($readStream);
   }

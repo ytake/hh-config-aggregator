@@ -1,9 +1,9 @@
 use type Facebook\HackTest\HackTest;
 use type Ytake\HHConfigAggreagator\{
-  ArrayProvider,
   Cache,
   CacheConfig,
   ConfigAggreagator,
+  DictProvider,
   PhpFileProvider,
 };
 use function Facebook\FBExpect\expect;
@@ -11,11 +11,11 @@ use function Facebook\FBExpect\expect;
 class ConfigAggregatorTest extends HackTest {
 
   public function testShouldReturnExpectedConfigArray(): void {
-    $expected = [
+    $expected = dict[
       'testing' => 'ExampleConfigProvider',
       'testing1' => 'NestedArrayProvider',
       0 => 1,
-      'nested' => ['tk' => 'tv'],
+      'nested' => dict['tk' => 'tv'],
       'hack' => 'config',
       'php' => 'config',
     ];
@@ -37,14 +37,14 @@ class ConfigAggregatorTest extends HackTest {
       'testing' => 'ExampleConfigProvider',
       'testing1' => 'NestedArrayProvider',
       0 => 1,
-      'nested' => ['tk' => 'tv'],
+      'nested' => dict['tk' => 'tv'],
       CacheConfig::KEYNAME => Cache::ENABLE,
     ];
     $aggregator = new ConfigAggreagator(
       vec[
         new ExampleConfigProvider(),
         new NestedArrayProvider(),
-        new ArrayProvider(dict[CacheConfig::KEYNAME => Cache::ENABLE]),
+        new DictProvider(dict[CacheConfig::KEYNAME => Cache::ENABLE]),
       ],
       __DIR__.'/resources/cached.config.cache.hh',
     );
@@ -54,18 +54,18 @@ class ConfigAggregatorTest extends HackTest {
   }
 
   public function testShouldReturnExpectedOverrideConfigArray(): void {
-    $expected = [
+    $expected = dict[
       'testing' => 'ExampleConfigOverrideProvider',
       'testing1' => 'NestedArrayProvider',
       0 => 2,
-      'nested' => ['tk' => 'tv'],
+      'nested' => dict['tk' => 'tv'],
       'testing2' => 'ArrayProvider',
     ];
     $aggregator = new ConfigAggreagator(
       vec[
         new ExampleConfigProvider(),
         new NestedArrayProvider(),
-        new ArrayProvider(
+        new DictProvider(
           dict[
             0 => 2,
             'testing' => 'ExampleConfigOverrideProvider',
