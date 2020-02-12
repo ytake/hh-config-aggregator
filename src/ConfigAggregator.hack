@@ -10,12 +10,12 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2017-2019 Yuuki Takezawa
+ * Copyright (c) 2017-2020 Yuuki Takezawa
  *
  */
 namespace Ytake\HHConfigAggreagator;
 
-use namespace HH\Lib\{C, Str};
+use namespace HH\Lib\{C, Str, Vec};
 use type HH\Lib\Experimental\File\Path;
 use function file_put_contents;
 use function date;
@@ -46,18 +46,15 @@ class ConfigAggreagator {
     if (!$require->exists()) {
       return false;
     }
-    $this->config = $require->require();
+    $this->config = \HH\Asio\join($require->require());
     return true;
   }
 
   private function loadConfigFromProviders(
     vec<ConfigProvidable> $providers,
   ): dict<arraykey, mixed> {
-    $configArray = vec[];
-    foreach ($providers as $provider) {
-      $configArray[] = $provider->provide();
-    }
-    return $this->mergeDict($configArray);
+    $configAsyncVec = Vec\map_async($providers, ($p) ==> $p->provideAsync());
+    return $this->mergeDict(\HH\Asio\join($configAsyncVec));
   }
 
   <<__Rx>>

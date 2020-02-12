@@ -10,18 +10,20 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2017-2019 Yuuki Takezawa
+ * Copyright (c) 2017-2020 Yuuki Takezawa
  *
  */
 namespace Ytake\HHConfigAggreagator;
 
-class ArrayProvider implements ConfigProvidable {
+class DictProvider implements ConfigProvidable {
 
   public function __construct(
     private dict<arraykey, mixed> $config
   ) {}
 
-  public function provide(): dict<arraykey, mixed> {
-    return $this->config;
+  public async function provideAsync(): Awaitable<dict<arraykey, mixed>> {
+    return await async {
+      return $this->config;
+    };
   }
 }

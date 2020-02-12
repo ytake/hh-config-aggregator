@@ -10,7 +10,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  *
- * Copyright (c) 2017-2019 Yuuki Takezawa
+ * Copyright (c) 2017-2020 Yuuki Takezawa
  *
  */
 namespace Ytake\HHConfigAggreagator;
@@ -27,7 +27,7 @@ final class Filesystem {
     return $this->filePath->exists();
   }
 
-  public function require(): dict<arraykey, mixed> {
+  public async function require(): Awaitable<dict<arraykey, mixed>> {
     if($this->filePath->isFile()) {
       return require $this->filePath->toString();
     }
