@@ -15,7 +15,7 @@
  */
 namespace Ytake\HHConfigAggreagator;
 
-use type HH\Lib\Experimental\File\Path;
+use type HH\Lib\File\Path;
 
 final class Filesystem {
 

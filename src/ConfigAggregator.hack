@@ -16,7 +16,7 @@
 namespace Ytake\HHConfigAggreagator;
 
 use namespace HH\Lib\{C, Str, Vec};
-use type HH\Lib\Experimental\File\Path;
+use type HH\Lib\File\Path;
 use function file_put_contents;
 use function date;
 use function var_export;
