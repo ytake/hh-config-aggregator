@@ -9,7 +9,7 @@ Aggregates and merges configuration, Supports caching for fast bootstrap in prod
 ## Installation
 
 ```bash
-$ hhvm $(which composer) require ytake/hh-config-aggregator
+$ composer require ytake/hh-config-aggregator
 ```
 
 ## Usage
@@ -22,11 +22,11 @@ use type Ytake\HHConfigAggreagator\PhpFileProvider;
 $aggregator = new ConfigAggreagator(
   vec[
     new PhpFileProvider(
-      __DIR__.'/resources/config/{{,*.}global,{,*.}local}.{hh,php}',
+      __DIR__.'/resources/config/{{,*.}global,{,*.}local}.{hack,hackpartial}',
     ),
     new ArrayProvider(['config_cache_enabled' => true])
   ],
-  __DIR__.'/resources/cached.config.cache.hh'
+  __DIR__.'/resources/cached.config.cache.hackpartial'
 );
 $aggregator->getMergedConfig();
 ```
