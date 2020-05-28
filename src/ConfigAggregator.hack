@@ -95,8 +95,7 @@ class ConfigAggreagator {
     file_put_contents(
       $cachedConfigFile,
       Str\format(
-        '<?hh // partial
-/**
+        '/**
  * This configuration cache file was generated at %s
  */
 return %s;',

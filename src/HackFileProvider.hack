@@ -18,7 +18,7 @@ namespace Ytake\HHConfigAggreagator;
 use namespace HH\Lib\Dict;
 use type HH\Lib\File\Path;
 
-class PhpFileProvider implements ConfigProvidable {
+class HackFileProvider implements ConfigProvidable {
   use GlobTrait;
 
   public function __construct(

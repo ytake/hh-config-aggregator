@@ -4,7 +4,7 @@ use type Ytake\HHConfigAggreagator\{
   CacheConfig,
   ConfigAggreagator,
   DictProvider,
-  PhpFileProvider,
+  HackFileProvider,
 };
 use function Facebook\FBExpect\expect;
 
@@ -23,8 +23,8 @@ class ConfigAggregatorTest extends HackTest {
       vec[
         new ExampleConfigProvider(),
         new NestedArrayProvider(),
-        new PhpFileProvider(
-          __DIR__.'/resources/config/{{,*.}global,{,*.}local}.{hh,php}',
+        new HackFileProvider(
+          __DIR__.'/resources/config/{{,*.}global,{,*.}local}.{hackpartial}',
         ),
       ],
     );
@@ -46,7 +46,7 @@ class ConfigAggregatorTest extends HackTest {
         new NestedArrayProvider(),
         new DictProvider(dict[CacheConfig::KEYNAME => Cache::ENABLE]),
       ],
-      __DIR__.'/resources/cached.config.cache.hh',
+      __DIR__.'/resources/cached.config.cache.hackpartial',
     );
     $config = $aggregator->getMergedConfig();
     expect($config)->toBeType('dict');
