@@ -15,7 +15,7 @@
  */
 namespace Ytake\HHConfigAggreagator;
 
-use namespace HH\Lib\Dict;
+use namespace HH\Lib\Vec;
 use type HH\Lib\File\Path;
 
 class HackFileProvider implements ConfigProvidable {
@@ -27,9 +27,16 @@ class HackFileProvider implements ConfigProvidable {
 
   public async function provideAsync(): Awaitable<dict<arraykey, mixed>> {
     $readStream = dict[];
+    $fv = vec[];
     foreach ($this->glob($this->pattern) as $file) {
-      $fr = new Filesystem(new Path($file));
-      $readStream = Dict\merge($readStream, await $fr->require());
+      $fv[] = new Filesystem(new Path($file));
+    }
+    $read = Vec\map_async($fv, ($f) ==> $f->require());
+    $stream = await $read;
+    foreach ($stream as $value) {
+      foreach ($value as $key => $v) {
+        $readStream[$key] = $v;
+      }
     }
     return dict($readStream);
   }
